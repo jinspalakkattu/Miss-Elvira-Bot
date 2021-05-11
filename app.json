@@ -1,7 +1,7 @@
 
 {
-  "name": "UFS Bot",
-  "logo": "https://telegra.ph/file/b62f9703cf805da50d5c4.jpg",
+  "name": "Miss Elvira Bot",
+  "logo": "https://telegra.ph/file/779157a0005e8aa36f4b6.jpg",
   "description": "Telegram's Eassiest Group Manager. Modular Telegram Group Management Bot!",
   "keywords": [
     "telegram",
@@ -10,7 +10,7 @@
     "manager",
     "3"
   ],
-  "repository": "hhttps://github.com/jinspalakkattu/UFSBot",
+  "repository": "hhttps://github.com/jinspalakkattu/Miss-Elvira-Bot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable env variables",
