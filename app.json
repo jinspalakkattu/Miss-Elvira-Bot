@@ -1,8 +1,8 @@
 
 {
-  "name": "Miss Rose",
-  "logo": "https://telegra.ph/file/48522f7be29b993a19e60.jpg",
-  "description": "Telegram's sassiest group manager. Modular Telegram group management bot!",
+  "name": "UFS Bot",
+  "logo": "https://telegra.ph/file/b62f9703cf805da50d5c4.jpg",
+  "description": "Telegram's Eassiest Group Manager. Modular Telegram Group Management Bot!",
   "keywords": [
     "telegram",
     "best",
@@ -10,7 +10,7 @@
     "manager",
     "3"
   ],
-  "repository": "hhttps://github.com/FayasKKD/Miss-Rose-Bot",
+  "repository": "hhttps://github.com/jinspalakkattu/UFSBot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable env variables",
