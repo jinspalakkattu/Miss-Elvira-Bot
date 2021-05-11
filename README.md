@@ -1,4 +1,4 @@
-# [UFS Bot](https://t.me/UFSGMBot)
+# [Miss Elvira Bot](https://t.me/MissElvira_Bot)
 
 ### Deploy
 
