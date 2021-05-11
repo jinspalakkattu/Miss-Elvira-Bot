@@ -1,4 +1,4 @@
-# [Miss Rose Bot](https://t.me/MissRose_bot)
+# [UFS Bot](https://t.me/UFSGMBot)
 
 ### Deploy
 
@@ -6,7 +6,7 @@
 
 ### Credits
 
-• [FayasKKD](https://github.com/FayasKKD/Bio) for this Repository 
+• [Jins Mathew](https://github.com/jinspalakkattu/) for this Repository 
 
 • [Paul Larsen](https://github.com/PaulSonOfLars) for his [tgbot](https://github.com/PaulSonOfLars/tgbot) Repository and [Miss Rose Bot](https://t.me/MissRose_bot)
 
@@ -14,4 +14,4 @@
 
 ## Profile
 
-![Rose Profile](https://telegra.ph/file/718d48493d1fb11197d8b.jpg)
+![UFS](https://telegra.ph/file/b62f9703cf805da50d5c4.jpg)
