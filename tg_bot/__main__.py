@@ -18,14 +18,14 @@ from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
-Hey there! My name is *{}*, I'm here to help you manage your groups! Hit /help to find out more about how to use me to my full potential.
+Hey Dear <code>*{}*</code>! My name is <code>*{}*</code>, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
 
-Join my [news channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) to get information on all the latest updates.
+Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Information On All The Latest Updates.
 """
 
 HELP_STRINGS = """
-Hey! My name is *{}*. I am a group management bot, here to help you get around and keep the order in your groups!
-I have lots of handy features, such as flood control, a warning system, a note keeping system, and even predetermined replies on certain keywords.
+Hey <code>*{}*</code>! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
+I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note Keeping System, And Even Predetermined Replies On Certain Keywords.
 
 *Helpful commands*:
 - /start: Starts me! You've probably already used this.
@@ -36,7 +36,7 @@ I have lots of handy features, such as flood control, a warning system, a note k
 All commands can be used with the following: / !
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "If you have any bugs or questions on how to use me, have a look at my [Group](https://t.me/joinchat/YS-WlsUC9nFiOWM0).")
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
+DONATE_STRING = """Heya <code>*{}*</code>, Glad To Hear You Want To Donate!
 It took lots of work for [my creator](t.me/lnc3f3r) to get me to where I am now, and every donation helps \
 motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer . He's just a poor student, so every little helps!
 There are two ways of paying him; [PayPal](paypal.me/jinspalakkattu)."""
