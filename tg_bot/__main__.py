@@ -24,7 +24,7 @@ Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Informatio
 """
 
 HELP_STRINGS = """
-Hey <code>*{}*</code>! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
+Hey Dear! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
 I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note Keeping System, And Even Predetermined Replies On Certain Keywords.
 
 *Helpful commands*:
@@ -112,7 +112,7 @@ def start(bot: Bot, update: Update, args: List[str]):
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
-                send_help(update.effective_chat.id, HELP_STRINGS.format(first_name, escape_markdown(bot.first_name)))
+                send_help(update.effective_chat.id, HELP_STRINGS)
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
@@ -187,20 +187,20 @@ def help_button(bot: Bot, update: Update):
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.reply_text(HELP_STRINGS.format(first_name, escape_markdown(bot.first_name)),
+            query.message.reply_text(HELP_STRINGS),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(curr_page - 1, HELPABLE, "help")))
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(HELP_STRINGS.format(first_name, escape_markdown(bot.first_name)),
+            query.message.reply_text(HELP_STRINGS),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(next_page + 1, HELPABLE, "help")))
 
         elif back_match:
-            query.message.reply_text(text=HELP_STRINGS.format(first_name, escape_markdown(bot.first_name)),
+            query.message.reply_text(text=HELP_STRINGS),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
@@ -241,7 +241,7 @@ def get_help(bot: Bot, update: Update):
         send_help(chat.id, text, InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="help_back")]]))
 
     else:
-        send_help(chat.id, HELP_STRINGS.format(first_name, escape_markdown(bot.first_name)))
+        send_help(chat.id, HELP_STRINGS)
 
 
 def send_settings(chat_id, user_id, user=False):
