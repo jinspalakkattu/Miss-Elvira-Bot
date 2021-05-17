@@ -38,7 +38,8 @@ All commands can be used with the following: / !
 
 DONATE_STRING = """Heya, Glad To Hear You Want To Donate!
 It took lots of work for [my creator](t.me/lnc3f3r) to get me to where I am now, and every donation helps \
-motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer . He's just a poor student, so every little helps!
+motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer. \
+He's just a poor student, so every little helps!
 There are two ways of paying him; [PayPal](paypal.me/jinspalakkattu)."""
 
 IMPORTED = {}
