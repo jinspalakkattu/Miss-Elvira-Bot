@@ -18,7 +18,7 @@ from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
-Hey Dear <code>*{}*</code>! My name is <code>*{}*</code>, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
+Hey Dear! My name is <code>*{}*</code>, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
 
 Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Information On All The Latest Updates.
 """
@@ -36,7 +36,7 @@ I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note K
 All commands can be used with the following: / !
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "If you have any bugs or questions on how to use me, have a look at my [Group](https://t.me/joinchat/YS-WlsUC9nFiOWM0).")
 
-DONATE_STRING = """Heya <code>*{}*</code>, Glad To Hear You Want To Donate!
+DONATE_STRING = """Heya, Glad To Hear You Want To Donate!
 It took lots of work for [my creator](t.me/lnc3f3r) to get me to where I am now, and every donation helps \
 motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer . He's just a poor student, so every little helps!
 There are two ways of paying him; [PayPal](paypal.me/jinspalakkattu)."""
@@ -129,7 +129,7 @@ def start(bot: Bot, update: Update, args: List[str]):
         else:
             first_name = update.effective_user.first_name
             update.effective_message.reply_text(
-                PM_START_TEXT.format(first_name, escape_markdown(bot.first_name)),
+                PM_START_TEXT.format(escape_markdown(bot.first_name)),
                                     parse_mode=ParseMode.MARKDOWN,
                                     disable_web_page_preview=True,
                                     reply_markup=InlineKeyboardMarkup(
@@ -231,7 +231,7 @@ def get_help(bot: Bot, update: Update):
                                             reply_markup=InlineKeyboardMarkup(
                                                 [[InlineKeyboardButton(text="Help",
                                                                        url="t.me/{}?start=help".format(
-                                                                           first_name,bot.username))]]))
+                                                                           bot.username))]]))
         return
 
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
