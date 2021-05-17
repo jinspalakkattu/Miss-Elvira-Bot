@@ -18,7 +18,7 @@ from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
-Hey Dear! My name is <code>*{}*</code>, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
+Hey Dear! My name is *{}*, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
 
 Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Information On All The Latest Updates.
 """
@@ -108,7 +108,6 @@ def test(bot: Bot, update: Update):
 
 @run_async
 def start(bot: Bot, update: Update, args: List[str]):
-    first_name = update.effective_user.first_name
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
@@ -174,7 +173,6 @@ def help_button(bot: Bot, update: Update):
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back", query.data)
-    first_name = update.effective_user.first_name
     try:
         if mod_match:
             module = mod_match.group(1)
@@ -222,7 +220,6 @@ def help_button(bot: Bot, update: Update):
 def get_help(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
-    first_name = update.effective_user.first_name
 
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
@@ -362,10 +359,9 @@ def get_settings(bot: Bot, update: Update):
 def donate(bot: Bot, update: Update):
     user = update.effective_message.from_user
     chat = update.effective_chat  # type: Optional[Chat]
-    first_name = update.effective_user.first_name
 
     if chat.type == "private":
-        update.effective_message.reply_text(DONATE_STRING.format(first_name), parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+        update.effective_message.reply_text(DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
         if OWNER_ID != 631110062 and DONATION_LINK:
             update.effective_message.reply_text("You can also donate to the person currently running me "
@@ -374,7 +370,7 @@ def donate(bot: Bot, update: Update):
 
     else:
         try:
-            bot.send_message(user.id, DONATE_STRING.format(first_name), parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+            bot.send_message(user.id, DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
             update.effective_message.reply_text("I've PM'ed you about donating to my creator!")
         except Unauthorized:
