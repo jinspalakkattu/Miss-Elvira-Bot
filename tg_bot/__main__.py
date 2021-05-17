@@ -193,13 +193,13 @@ def help_button(bot: Bot, update: Update):
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(HELP_STRINGS),
+            query.message.reply_text(HELP_STRINGS,
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(next_page + 1, HELPABLE, "help")))
 
         elif back_match:
-            query.message.reply_text(text=HELP_STRINGS),
+            query.message.reply_text(text=HELP_STRINGS,
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
