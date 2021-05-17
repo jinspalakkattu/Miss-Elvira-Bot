@@ -36,40 +36,40 @@ def send(update, message, keyboard, backup_message):
         msg = update.effective_message.reply_text(message, parse_mode=ParseMode.MARKDOWN, reply_markup=keyboard)
     except IndexError:
         msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                  "\nNote: the current message was "
-                                                                  "invalid due to markdown issues. Could be "
-                                                                  "due to the user's name."),
+                                                                  "\nNote: The Current Message Was "
+                                                                  "Invalid Due To Markdown Issues. Could Be "
+                                                                  "Due To The User's Name."),
                                                   parse_mode=ParseMode.MARKDOWN)
     except KeyError:
         msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                  "\nNote: the current message is "
-                                                                  "invalid due to an issue with some misplaced "
-                                                                  "curly brackets. Please update"),
+                                                                  "\nNote: The Current Message Is "
+                                                                  "Invalid Due To An Issue With Some Misplaced "
+                                                                  "Curly Brackets. Please Update"),
                                                   parse_mode=ParseMode.MARKDOWN)
     except BadRequest as excp:
         if excp.message == "Button_url_invalid":
             msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                      "\nNote: the current message has an invalid url "
-                                                                      "in one of its buttons. Please update."),
+                                                                      "\nNote: The Current Message Has An Invalid Url "
+                                                                      "In One Of Its Buttons. Please Update."),
                                                       parse_mode=ParseMode.MARKDOWN)
         elif excp.message == "Unsupported url protocol":
             msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                      "\nNote: the current message has buttons which "
-                                                                      "use url protocols that are unsupported by "
-                                                                      "telegram. Please update."),
+                                                                      "\nNote: The Current Message Has Buttons Which "
+                                                                      "Use Url Protocols That Are Unsupported By "
+                                                                      "Telegram. Please Update."),
                                                       parse_mode=ParseMode.MARKDOWN)
         elif excp.message == "Wrong url host":
             msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                      "\nNote: the current message has some bad urls. "
-                                                                      "Please update."),
+                                                                      "\nNote: The Current Message Has Some Bad Urls. "
+                                                                      "Please Update."),
                                                       parse_mode=ParseMode.MARKDOWN)
             LOGGER.warning(message)
             LOGGER.warning(keyboard)
-            LOGGER.exception("Could not parse! got invalid url host errors")
+            LOGGER.exception("Could Not Parse! Got Invalid Url Host Errors")
         else:
             msg = update.effective_message.reply_text(markdown_parser(backup_message +
-                                                                      "\nNote: An error occured when sending the "
-                                                                      "custom message. Please update."),
+                                                                      "\nNote: An Error Occured When Sending The "
+                                                                      "Custom Message. Please Update."),
                                                       parse_mode=ParseMode.MARKDOWN)
             LOGGER.exception()
 
@@ -295,7 +295,7 @@ def goodbye(bot: Bot, update: Update, args: List[str]):
         noformat = args and args[0] == "noformat"
         pref, goodbye_m, goodbye_type = sql.get_gdbye_pref(chat.id)
         update.effective_message.reply_text(
-            "This chat has it's goodbye setting set to: `{}`.\n*The goodbye  message "
+            "This chat has it's goodbye setting set to: `{}`.\n*The Goodbye  Message "
             "(not filling the {{}}) is:*".format(pref),
             parse_mode=ParseMode.MARKDOWN)
 
@@ -347,12 +347,12 @@ def set_welcome(bot: Bot, update: Update) -> str:
         return ""
 
     sql.set_custom_welcome(chat.id, content or text, data_type, buttons)
-    msg.reply_text("Successfully set custom welcome message!")
+    msg.reply_text("Successfully Set Custom Welcome Message!")
 
     return "<b>{}:</b>" \
            "\n#SET_WELCOME" \
            "\n<b>Admin:</b> {}" \
-           "\nSet the welcome message.".format(html.escape(chat.title),
+           "\nSet The Welcome Message.".format(html.escape(chat.title),
                                                mention_html(user.id, user.first_name))
 
 
@@ -385,11 +385,11 @@ def set_goodbye(bot: Bot, update: Update) -> str:
         return ""
 
     sql.set_custom_gdbye(chat.id, content or text, data_type, buttons)
-    msg.reply_text("Successfully set custom goodbye message!")
+    msg.reply_text("Successfully Set Custom Goodbye Message!")
     return "<b>{}:</b>" \
            "\n#SET_GOODBYE" \
            "\n<b>Admin:</b> {}" \
-           "\nSet the goodbye message.".format(html.escape(chat.title),
+           "\nSet The Goodbye Message.".format(html.escape(chat.title),
                                                mention_html(user.id, user.first_name))
 
 
@@ -400,11 +400,11 @@ def reset_goodbye(bot: Bot, update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     sql.set_custom_gdbye(chat.id, sql.DEFAULT_GOODBYE, sql.Types.TEXT)
-    update.effective_message.reply_text("Successfully reset goodbye message to default!")
+    update.effective_message.reply_text("Successfully Reset Goodbye Message To Default!")
     return "<b>{}:</b>" \
            "\n#RESET_GOODBYE" \
            "\n<b>Admin:</b> {}" \
-           "\nReset the goodbye message.".format(html.escape(chat.title),
+           "\nReset The Goodbye Message.".format(html.escape(chat.title),
                                                  mention_html(user.id, user.first_name))
 
 
@@ -418,56 +418,56 @@ def clean_welcome(bot: Bot, update: Update, args: List[str]) -> str:
     if not args:
         clean_pref = sql.get_clean_pref(chat.id)
         if clean_pref:
-            update.effective_message.reply_text("I should be deleting welcome messages up to two days old.")
+            update.effective_message.reply_text("I Should Be Deleting Welcome Messages Up To Two Days Old.")
         else:
-            update.effective_message.reply_text("I'm currently not deleting old welcome messages!")
+            update.effective_message.reply_text("I'm Currently Not Deleting Old Welcome Messages!")
         return ""
 
     if args[0].lower() in ("on", "yes"):
         sql.set_clean_welcome(str(chat.id), True)
-        update.effective_message.reply_text("I'll try to delete old welcome messages!")
+        update.effective_message.reply_text("I'll Try To Delete Old Welcome Messages!")
         return "<b>{}:</b>" \
                "\n#CLEAN_WELCOME" \
                "\n<b>Admin:</b> {}" \
-               "\nHas toggled clean welcomes to <code>ON</code>.".format(html.escape(chat.title),
+               "\nHas Toggled Clean Welcomes To <code>ON</code>.".format(html.escape(chat.title),
                                                                          mention_html(user.id, user.first_name))
     elif args[0].lower() in ("off", "no"):
         sql.set_clean_welcome(str(chat.id), False)
-        update.effective_message.reply_text("I won't delete old welcome messages.")
+        update.effective_message.reply_text("I Won't Delete Old Welcome Messages.")
         return "<b>{}:</b>" \
                "\n#CLEAN_WELCOME" \
                "\n<b>Admin:</b> {}" \
-               "\nHas toggled clean welcomes to <code>OFF</code>.".format(html.escape(chat.title),
+               "\nHas Toggled Clean Welcomes To <code>OFF</code>.".format(html.escape(chat.title),
                                                                           mention_html(user.id, user.first_name))
     else:
         # idek what you're writing, say yes or no
-        update.effective_message.reply_text("I understand 'on/yes' or 'off/no' only!")
+        update.effective_message.reply_text("I Understand 'on/yes' or 'off/no' only!")
         return ""
 
 
-WELC_HELP_TXT = "Your group's welcome/goodbye messages can be personalised in multiple ways. If you want the messages" \
-                " to be individually generated, like the default welcome message is, you can use *these* variables:\n" \
-                " - `{{first}}`: this represents the user's *first* name\n" \
-                " - `{{last}}`: this represents the user's *last* name. Defaults to *first name* if user has no " \
-                "last name.\n" \
-                " - `{{fullname}}`: this represents the user's *full* name. Defaults to *first name* if user has no " \
-                "last name.\n" \
-                " - `{{username}}`: this represents the user's *username*. Defaults to a *mention* of the user's " \
-                "first name if has no username.\n" \
-                " - `{{mention}}`: this simply *mentions* a user - tagging them with their first name.\n" \
-                " - `{{id}}`: this represents the user's *id*\n" \
-                " - `{{count}}`: this represents the user's *member number*.\n" \
-                " - `{{chatname}}`: this represents the *current chat name*.\n" \
-                "\nEach variable MUST be surrounded by `{{}}` to be replaced.\n" \
-                "Welcome messages also support markdown, so you can make any elements bold/italic/code/links. " \
-                "Buttons are also supported, so you can make your welcomes look awesome with some nice intro " \
-                "buttons.\n" \
-                "To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{}?start=group_id)`. " \
-                "Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to " \
-                "go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't " \
-                "remove it.\n" \
-                "If you're feeling fun, you can even set images/gifs/videos/voice messages as the welcome message by " \
-                "replying to the desired media, and calling /setwelcome.".format(dispatcher.bot.username)
+WELC_HELP_TXT = "Your group's Welcome/Goodbye Messages Can Be Personalised In Multiple Ways. If You Want The Messages" \
+                " To Be Individually Generated, Like The Default Welcome Message Is, You Can Use *These* Variables:\n" \
+                " - `{{first}}`: This Represents The User's *First* Name\n" \
+                " - `{{last}}`: This Represents The User's *Last* Name. Defaults To *First Name* If User Has No " \
+                "Last Name.\n" \
+                " - `{{fullname}}`: This Represents The User's *Full* Name. Defaults To *First Name* If User Has No " \
+                "Last Name.\n" \
+                " - `{{username}}`: This Represents The User's *UserName*. Defaults To A *Mention* Of The User's " \
+                "First Name If Has No Username.\n" \
+                " - `{{mention}}`: This Simply *Mentions* A User - Tagging Them With Their First Name.\n" \
+                " - `{{id}}`: This Represents The User's *Id*\n" \
+                " - `{{count}}`: This Represents The User's *Member Number*.\n" \
+                " - `{{chatname}}`: This Represents The *Current Chat Name*.\n" \
+                "\nEach Variable MUST Be Surrounded By `{{}}` To Be Replaced.\n" \
+                "Welcome Messages Also Support Markdown, So You Can Make Any Elements Bold/Italic/Code/Links. " \
+                "Buttons Are Also Supported, So You Can Make Your Welcomes Look Awesome With Some Nice Intro " \
+                "Buttons.\n" \
+                "To Create A Button Linking To Your Rules, Use This: `[Rules](buttonurl://t.me/{}?start=group_id)`. " \
+                "Simply Replace `group_id` With Your Group's Id, Which Can Be Obtained Via /Id, And You're Good To " \
+                "Go. Note That Group Ids Are Usually Preceded By A `-` Sign; This Is Required, So Please Don't " \
+                "Remove It.\n" \
+                "If You're Feeling Fun, You Can Even Set Images/Gifs/Videos/Voice Messages As The Welcome Message By " \
+                "Replying To The Desired Media, And Calling /setwelcome.".format(dispatcher.bot.username)
 
 
 @run_async
@@ -495,25 +495,25 @@ def __migrate__(old_chat_id, new_chat_id):
 def __chat_settings__(chat_id, user_id):
     welcome_pref, _, _ = sql.get_welc_pref(chat_id)
     goodbye_pref, _, _ = sql.get_gdbye_pref(chat_id)
-    return "This chat has it's welcome preference set to `{}`.\n" \
-           "It's goodbye preference is `{}`.".format(welcome_pref, goodbye_pref)
+    return "This Chat Has It's Welcome Preference Set To `{}`.\n" \
+           "It's Goodbye Preference Is `{}`.".format(welcome_pref, goodbye_pref)
 
 
 __help__ = """
 {}
 
 *Admin only:*
- - /welcome <on/off>: enable/disable welcome messages.
- - /welcome: shows current welcome settings.
- - /welcome noformat: shows current welcome settings, without the formatting - useful to recycle your welcome messages!
- - /goodbye -> same usage and args as /welcome.
- - /setwelcome <sometext>: set a custom welcome message. If used replying to media, uses that media.
- - /setgoodbye <sometext>: set a custom goodbye message. If used replying to media, uses that media.
- - /resetwelcome: reset to the default welcome message.
- - /resetgoodbye: reset to the default goodbye message.
- - /cleanwelcome <on/off>: On new member, try to delete the previous welcome message to avoid spamming the chat.
- - /clearjoin <on/off>: when someone joins, try to delete the *user* joined the group message.
- - /welcomehelp: view more formatting information for custom welcome/goodbye messages.
+ - /welcome <on/off>: Enable/Disable Welcome Messages.
+ - /welcome: Shows Current Welcome Settings.
+ - /welcome noformat: Shows Current Welcome Settings, Without The Formatting - Useful To Recycle Your Welcome Messages!
+ - /goodbye -> Same Usage And Args As /welcome.
+ - /setwelcome <sometext>: Set A Custom Welcome Message. If Used Replying To Media, Uses That Media.
+ - /setgoodbye <sometext>: Set A Custom Goodbye Message. If Used Replying To Media, Uses That Media.
+ - /resetwelcome: Reset To The Default Welcome Message.
+ - /resetgoodbye: Reset To The Default Goodbye Message.
+ - /cleanwelcome <on/off>: On New Member, Try To Delete The Previous Welcome Message To Avoid Spamming The Chat.
+ - /clearjoin <on/off>: When Someone Joins, Try To Delete The *user* Joined The Group Message.
+ - /welcomehelp: View More Formatting Information For Custom Welcome/Goodbye Messages.
 
 """.format(WELC_HELP_TXT)
 
