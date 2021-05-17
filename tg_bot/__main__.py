@@ -18,7 +18,7 @@ from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
-Hey Dear! My name is *{}*, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
+Hey Dear <code>*{}*</code>! My name is *{}*, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
 
 Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Information On All The Latest Updates.
 """
