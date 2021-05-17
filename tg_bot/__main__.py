@@ -24,7 +24,7 @@ Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Informatio
 """
 
 HELP_STRINGS = """
-Hey Dear *{}*! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
+Hey Dear! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
 I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note Keeping System, And Even Predetermined Replies On Certain Keywords.
 
 *Helpful commands*:
