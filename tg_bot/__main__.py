@@ -133,7 +133,7 @@ def start(bot: Bot, update: Update, args: List[str]):
                                     parse_mode=ParseMode.MARKDOWN,
                                     disable_web_page_preview=True,
                                     reply_markup=InlineKeyboardMarkup(
-                                        [[InlineKeyboardButton(text="Add me to your chat!", url="t.me/{}?startgroup=true".format(first_name,bot.username))]]))
+                                        [[InlineKeyboardButton(text="Add me to your chat!", url="t.me/{}?startgroup=true".format(bot.username))]]))
     else:
         update.effective_message.reply_text("Hello all Join [UFS Support Group](https://t.me/joinchat/YS-WlsUC9nFiOWM0).")
 
