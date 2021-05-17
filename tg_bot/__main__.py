@@ -18,13 +18,13 @@ from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
-Hey Dear <code>*{}*</code>! My name is *{}*, I'm Here To Hlp You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
+Hey Dear *{}*! My name is *{}*, I'm Here To Help You Manage Your Groups! Hit /help To Find Out More About How To Use Me To My Full Potential.
 
 Join My [News Channel](https://t.me/joinchat/7qlEga5lO0o2MTg0) To Get Information On All The Latest Updates.
 """
 
 HELP_STRINGS = """
-Hey Dear! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
+Hey Dear *{}*! My name is *{}*. I Am A Group Management Bot, Here To Help You Get Around And Keep The Order In Your Groups!
 I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note Keeping System, And Even Predetermined Replies On Certain Keywords.
 
 *Helpful commands*:
@@ -36,7 +36,7 @@ I Have Lots Of Handy Features, Such As Flood Control, A Warning System, A Note K
 All commands can be used with the following: / !
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "If you have any bugs or questions on how to use me, have a look at my [Group](https://t.me/joinchat/YS-WlsUC9nFiOWM0).")
 
-DONATE_STRING = """Heya, Glad To Hear You Want To Donate!
+DONATE_STRING = """Hey Dear *{}*, Glad To Hear You Want To Donate!
 It took lots of work for [my creator](t.me/lnc3f3r) to get me to where I am now, and every donation helps \
 motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer. \
 He's just a poor student, so every little helps!
@@ -109,10 +109,11 @@ def test(bot: Bot, update: Update):
 
 @run_async
 def start(bot: Bot, update: Update, args: List[str]):
+    first_name = update.effective_user.first_name
     if update.effective_chat.type == "private":
         if len(args) >= 1:
             if args[0].lower() == "help":
-                send_help(update.effective_chat.id, HELP_STRINGS)
+                send_help(update.effective_chat.id, HELP_STRINGS.format(first_name))
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
@@ -127,7 +128,6 @@ def start(bot: Bot, update: Update, args: List[str]):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            first_name = update.effective_user.first_name
             update.effective_message.reply_text(
                 PM_START_TEXT.format(first_name,escape_markdown(bot.first_name)),
                                     parse_mode=ParseMode.MARKDOWN,
@@ -169,6 +169,7 @@ def error_callback(bot, update, error):
 
 @run_async
 def help_button(bot: Bot, update: Update):
+    first_name = update.effective_user.first_name
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -186,20 +187,20 @@ def help_button(bot: Bot, update: Update):
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
-            query.message.reply_text(HELP_STRINGS,
+            query.message.reply_text(HELP_STRINGS.format(first_name),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(curr_page - 1, HELPABLE, "help")))
 
         elif next_match:
             next_page = int(next_match.group(1))
-            query.message.reply_text(HELP_STRINGS,
+            query.message.reply_text(HELP_STRINGS.format(first_name),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(
                                          paginate_modules(next_page + 1, HELPABLE, "help")))
 
         elif back_match:
-            query.message.reply_text(text=HELP_STRINGS,
+            query.message.reply_text(text=HELP_STRINGS.format(first_name),
                                      parse_mode=ParseMode.MARKDOWN,
                                      reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")))
 
@@ -219,6 +220,7 @@ def help_button(bot: Bot, update: Update):
 
 @run_async
 def get_help(bot: Bot, update: Update):
+    first_name = update.effective_user.first_name
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
 
@@ -228,7 +230,7 @@ def get_help(bot: Bot, update: Update):
         update.effective_message.reply_text("Contact me in PM to get the list of possible commands.",
                                             reply_markup=InlineKeyboardMarkup(
                                                 [[InlineKeyboardButton(text="Help",
-                                                                       url="t.me/{}?start=help".format(
+                                                                       url="t.me/{}?start=help".format(first_name,
                                                                            bot.username))]]))
         return
 
@@ -239,7 +241,7 @@ def get_help(bot: Bot, update: Update):
         send_help(chat.id, text, InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="help_back")]]))
 
     else:
-        send_help(chat.id, HELP_STRINGS)
+        send_help(chat.id, HELP_STRINGS.format(first_name))
 
 
 def send_settings(chat_id, user_id, user=False):
@@ -358,11 +360,12 @@ def get_settings(bot: Bot, update: Update):
 
 @run_async
 def donate(bot: Bot, update: Update):
+    first_name = update.effective_user.first_name
     user = update.effective_message.from_user
     chat = update.effective_chat  # type: Optional[Chat]
 
     if chat.type == "private":
-        update.effective_message.reply_text(DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+        update.effective_message.reply_text(DONATE_STRING.format(first_name), parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
         if OWNER_ID != 631110062 and DONATION_LINK:
             update.effective_message.reply_text("You can also donate to the person currently running me "
@@ -371,7 +374,7 @@ def donate(bot: Bot, update: Update):
 
     else:
         try:
-            bot.send_message(user.id, DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
+            bot.send_message(user.id, DONATE_STRING.format(first_name), parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
             update.effective_message.reply_text("I've PM'ed you about donating to my creator!")
         except Unauthorized:
